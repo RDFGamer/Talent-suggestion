@@ -3,141 +3,271 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hobby Recommendation Chatbot</title>
+    <title>HobbyMate - Welcome</title>
     <style>
-        body {
-            font-family: 'Poppins', sans-serif;
-            text-align: center;
-            background: url('https://images.app.goo.gl/Kv1beVWUYZoVgoYd6') no-repeat center center fixed;
-            background-size: cover;
+        body, html {
             margin: 0;
             padding: 0;
+            height: 100%;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-        h1 {
+        .intro-section {
+            height: 100vh;
+            background: linear-gradient(to right, #43cea2, #185a9d);
             color: white;
-            padding: 20px;
-            background: rgba(0, 0, 0, 0.6);
-            display: inline-block;
-            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 30px;
+        }
+        .intro-section h1 {
+            font-size: 3rem;
+            margin-bottom: 10px;
+        }
+        .intro-section p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin-bottom: 20px;
+        }
+        .intro-section img {
+            max-width: 300px;
+            margin-bottom: 20px;
+            border-radius: 20px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+        }
+        .start-btn {
+            padding: 15px 30px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .start-btn:hover {
+            background-color: #218838;
+        }
+        #mainApp {
+            display: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            height: 100vh;
+            background-color: #f5f5f5;
+        }
+        header {
+            padding: 30px;
+            text-align: center;
+            color: #fff;
+            font-size: 2.5rem;
+            background-color: #007bff;
+            width: 100%;
         }
         #chatbox {
-            width: 50%;
-            margin: auto;
-            background: rgba(255, 255, 255, 0.9);
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            max-height: 400px;
+            background: white;
+            width: 70%;
+            max-width: 800px;
+            height: 60%;
             overflow-y: auto;
+            border-radius: 15px;
+            padding: 20px;
+            margin-top: 20px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
         .user, .bot {
-            margin: 10px 0;
-            padding: 12px;
-            border-radius: 10px;
-            max-width: 70%;
-            display: inline-block;
-            font-size: 14px;
+            margin: 12px 0;
+            padding: 12px 16px;
+            border-radius: 20px;
+            max-width: 75%;
+            font-size: 15px;
+            word-wrap: break-word;
         }
         .user {
-            background-color: #4caf50;
+            background-color: #007bff;
             color: white;
             align-self: flex-end;
-            text-align: right;
-            float: right;
-            clear: both;
+            margin-left: auto;
         }
         .bot {
-            background-color: #f44336;
-            color: white;
+            background-color: #f1f1f1;
+            color: #333;
             align-self: flex-start;
-            text-align: left;
-            float: left;
-            clear: both;
+            margin-right: auto;
         }
         #inputContainer {
             margin-top: 20px;
+            display: flex;
+            gap: 10px;
+            width: 70%;
+            max-width: 800px;
         }
         #userInput {
-            width: 60%;
-            padding: 10px;
-            border-radius: 5px;
+            flex: 1;
+            padding: 12px;
+            border-radius: 20px;
             border: 1px solid #ccc;
             font-size: 16px;
         }
         button {
-            padding: 10px 15px;
+            padding: 12px 20px;
             border: none;
-            background-color: #007bff;
+            background-color: #28a745;
             color: white;
-            border-radius: 5px;
+            border-radius: 20px;
             cursor: pointer;
             font-size: 16px;
-            margin-left: 5px;
         }
         button:hover {
-            background-color: #0056b3;
+            background-color: #218838;
+        }
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #333;
+            color: white;
+            font-size: 14px;
+        }
+        footer a {
+            color: #28a745;
+            text-decoration: none;
+        }
+        footer a:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
 <body>
-    <h1>Hobby Recommendation Chatbot</h1>
-    <div id="chatbox"></div>
-    <div id="inputContainer">
-        <input type="text" id="userInput" placeholder="Tell me your interests...">
-        <button onclick="sendMessage()">Send</button>
+    <div class="intro-section" id="intro">
+        <img src="https://images.unsplash.com/photo-1496307042754-b4aa456c4a2d" alt="Explore Hobbies">
+        <h1>🎉 Welcome to HobbyMate!</h1>
+        <p>Discover a world of hobbies tailored to your interests. From art and music to tech and fitness, HobbyMate helps you explore what you love with a smart and interactive chatbot experience.</p>
+        <button class="start-btn" onclick="startApp()">Start Exploring</button>
     </div>
 
+    <div id="mainApp">
+        <header>🎨 HobbyMate - Discover Your Passion</header>
+        <div id="chatbox"></div>
+        <div id="inputContainer">
+            <input type="text" id="userInput" placeholder="Tell me your interest or ask for help...">
+            <button onclick="sendMessage()">Send</button>
+            <button onclick="useVoiceInput()">🎤</button>
+        </div>
+    </div>
+
+    <footer>
+        <p>Contact us at <a href="mailto:hobby_recommendation@gmail.com">hobby_recommendation@gmail.com</a></p>
+        <p>© 2025 HobbyMate. All rights reserved.</p>
+    </footer>
+
     <script>
+        function startApp() {
+            document.getElementById("intro").style.display = "none";
+            document.getElementById("mainApp").style.display = "flex";
+            setTimeout(() => addMessage("bot", "👋 Hey there! I'm HobbyMate. Tell me what you like, and I'll recommend a hobby! Or just ask for help."), 600);
+        }
+
         const hobbies = {
-            "art": { "Painting": "Watercolor, Oil Painting, Acrylic", "Sketching": "Pencil, Charcoal, Digital", "Sculpting": "Clay, Wood, Stone" },
-            "music": { "Instruments": "Guitar, Piano, Violin", "Singing": "Classical, Pop, Jazz", "Production": "Mixing, DJing, Composing" },
-            "sports": { "Outdoor": "Football, Basketball, Cricket", "Indoor": "Chess, Table Tennis, Badminton" },
-            "tech": { "Coding": "Web Development, AI, Game Dev", "Robotics": "Arduino, Drone Building", "AI Research": "Machine Learning, Deep Learning" },
-            "nature": { "Exploration": "Hiking, Trekking, Birdwatching", "Gardening": "Organic Farming, Bonsai" },
-            "reading": { "Fiction": "Novels, Short Stories", "Non-Fiction": "Self-help, Biographies", "Writing": "Poetry, Blogging" },
-            "fitness": { "Gym": "Weightlifting, Cardio", "Yoga": "Meditation, Flexibility", "Outdoor": "Running, Cycling" }
+            art: {
+                Painting: ["Watercolor", "Oil Painting", "Acrylic"],
+                Sketching: ["Pencil", "Charcoal", "Digital"],
+                Sculpting: ["Clay", "Wood", "Stone"]
+            },
+            music: {
+                Instruments: ["Guitar", "Piano", "Violin"],
+                Singing: ["Classical", "Pop", "Jazz"],
+                Production: ["Mixing", "DJing", "Composing"]
+            },
+            sports: {
+                Outdoor: ["Football", "Basketball", "Cricket"],
+                Indoor: ["Chess", "Table Tennis", "Badminton"]
+            },
+            tech: {
+                Coding: ["Web Dev", "AI", "Game Dev"],
+                Robotics: ["Arduino", "Drones"],
+                Research: ["Machine Learning", "Deep Learning"]
+            },
+            nature: {
+                Exploration: ["Hiking", "Trekking", "Birdwatching"],
+                Gardening: ["Organic Farming", "Bonsai"]
+            },
+            reading: {
+                Fiction: ["Novels", "Short Stories"],
+                NonFiction: ["Self-help", "Biographies"],
+                Writing: ["Poetry", "Blogging"]
+            },
+            fitness: {
+                Gym: ["Weightlifting", "Cardio"],
+                Yoga: ["Meditation", "Flexibility"],
+                Outdoor: ["Running", "Cycling"]
+            }
         };
 
-        function addBotMessage(message) {
-            let chatbox = document.getElementById("chatbox");
-            chatbox.innerHTML += `<div class='bot'>${message}</div>`;
+        function addMessage(sender, message) {
+            const chatbox = document.getElementById("chatbox");
+            const div = document.createElement("div");
+            div.className = sender;
+            div.innerHTML = message;
+            chatbox.appendChild(div);
             chatbox.scrollTop = chatbox.scrollHeight;
         }
 
-        function findBestMatch(input) {
-            for (let key in hobbies) {
+        function findHobbyCategory(input) {
+            for (const key in hobbies) {
                 if (input.includes(key)) return key;
             }
             return null;
         }
 
         function sendMessage() {
-            let input = document.getElementById("userInput").value.toLowerCase().trim();
-            let chatbox = document.getElementById("chatbox");
-            
-            if (input === "") return;
-            
-            chatbox.innerHTML += `<div class='user'>${input}</div>`;
-            
-            if (input.includes("help me")) {
-                response = "Sure! Here are some options you might like: Art, Music, Sports, Tech, Nature, Reading, Fitness. Type one to explore!";
+            const inputField = document.getElementById("userInput");
+            const input = inputField.value.trim().toLowerCase();
+            if (!input) return;
+
+            addMessage("user", input);
+
+            let response = "";
+            if (input.includes("help")) {
+                response = "Sure! Here are some categories you can explore: Art, Music, Sports, Tech, Nature, Reading, Fitness. Type one to dive in!";
             } else {
-                let bestMatch = findBestMatch(input);
-                if (bestMatch) {
-                    let subcategories = Object.entries(hobbies[bestMatch]).map(([category, options]) => `${category}: ${options}`).join("<br>");
-                    response = `For ${bestMatch}, you might enjoy:<br>${subcategories}`;
+                const category = findHobbyCategory(input);
+                if (category) {
+                    const hobbyList = hobbies[category];
+                    const details = Object.entries(hobbyList)
+                        .map(([type, list]) => `<strong>${type}</strong>: ${list.join(", ")}`)
+                        .join("<br>");
+                    response = `Based on your interest in <strong>${category}</strong>, here are some hobbies you might enjoy:<br>${details}`;
                 } else {
-                    response = "I couldn't find a match, try different interests!";
+                    response = "Hmm, I didn't quite catch that. Try mentioning a category like 'music', 'fitness', or ask for 'help'.";
                 }
             }
-            
-            setTimeout(() => addBotMessage(response), 500);
-            document.getElementById("userInput").value = "";
+
+            setTimeout(() => addMessage("bot", response), 600);
+            inputField.value = "";
         }
 
-        // Initial Bot Greeting
-        window.onload = function() {
-            setTimeout(() => addBotMessage("Hi dude! How are you? Can you please tell me your hobby or let me help you choose one?"), 500);
+        function useVoiceInput() {
+            const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+            recognition.lang = 'en-US';
+            recognition.interimResults = false;
+
+            recognition.onresult = function(event) {
+                const transcript = event.results[0][0].transcript;
+                document.getElementById("userInput").value = transcript;
+                sendMessage();
+            };
+
+            recognition.onerror = function(event) {
+                alert("Voice input error: " + event.error);
+            };
+
+            recognition.start();
         }
     </script>
 </body>
